@@ -34,7 +34,20 @@ form.addEventListener("submit", event => {
 
   item.append(text, complete, remove);
   list.append(item);
+  filterTasks();
   // Refresh search here later.
   form.reset();
   titleInput.focus();
 });
+
+const search = document.querySelector("#search");
+
+function filterTasks() {
+  const query = search.value.trim().toLowerCase();
+
+  for (const item of list.children) {
+    item.hidden = !item.dataset.title.includes(query);
+  }
+}
+
+search.addEventListener("input", filterTasks);
